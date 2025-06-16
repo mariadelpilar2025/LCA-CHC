@@ -1,0 +1,68 @@
+ 
+ 	TITLE: LCA with covariates
+   DATA: FILE = "C:/Users/josemir.almeida/Desktop/LCA_BCH/CHC_Covariates.dat";
+
+  VARIABLE:
+
+  NAMES = ibge chntlca1 chrdlca1 chmdlca1 chsvlca2 chbflca1 chprlca1 chaslca1
+     chsvlca1 chsclca1 IBP1Q1Q2 IBP2Q3 IBP4Q4Q5 
+     north northeast south southeast center ibge2;
+
+  USEVAR = chntlca1 chrdlca1 chmdlca1 chsvlca2 chbflca1 chprlca1 chaslca1
+     chsvlca1 chsclca1 IBP1Q1Q2 IBP2Q3 IBP4Q4Q5 
+     north northeast south southeast center ibge2;
+
+  AUXILIARY = IBP1Q1Q2 IBP2Q3 IBP4Q4Q5 
+            north northeast south southeast center;
+
+  CLASSES = c(3);
+
+  CATEGORICAL = chntlca1 chmdlca1 chrdlca1 chsvlca1 
+	chsvlca2 chsclca1 chbflca1 chaslca1 chprlca1;
+
+  CLUSTER = ibge2;
+
+  ANALYSIS: 
+  TYPE = COMPLEX MIXTURE;
+  STARTS = 0;
+  PARAMETERIZATION = rescov;
+
+MODEL:
+
+%OVERALL%
+	[c#1*0.7886901]; !Class prevalence threshold
+      	[c#2*-0.1327546]; !Class prevalence threshold
+        	
+           CHNTLCA1 with CHSVLCA2;
+           CHMDLCA1 with CHRDLCA1;
+           CHRDLCA1 with CHSVLCA1;
+           CHRDLCA1 with CHSVLCA2;
+           CHRDLCA1 with CHASLCA1;
+           CHSVLCA1 with CHSVLCA2;
+           CHSVLCA1 with CHPRLCA1;
+           CHSVLCA2 with CHPRLCA1;
+           CHBFLCA1 with CHASLCA1;
+           CHBFLCA1 with CHPRLCA1;
+
+!values ??below are derived from 
+!the results of conventional LCA
+%c#3%
+[chntlca1$1*2.085 chrdlca1$1*0.273 chmdlca1$1*-0.129 chsvlca2$1*3.036 chbflca1$1*-0.736
+chprlca1$1*0.289 chaslca1$1*1.734 chsvlca1$1*2.228 chsclca1$1*0.807];
+
+%c#2%
+[chntlca1$1*1.054 chrdlca1$1*-1.291 chmdlca1$1*-0.582 chsvlca2$1*1.600 chbflca1$1*-2.043 
+chprlca1$1*-1.502 chaslca1$1*-0.373 chsvlca1$1*-0.046 chsclca1$1*-0.660];
+
+%c#1%
+[chntlca1$1*0.048 chrdlca1$1*-2.658 chmdlca1$1*-1.052 chsvlca2$1*-0.493 chbflca1$1*-3.452 
+chprlca1$1*-2.568 chaslca1$1*-1.947 chsvlca1$1* -2.829 chsclca1$1*-2.865];
+
+  OUTPUT: CINTERVAL
+  	TECH1 TECH3 TECH10 TECH11; 
+
+SAVEDATA:
+FILE= 3BCH.dat; SAVE = bchweights;
+
+
+

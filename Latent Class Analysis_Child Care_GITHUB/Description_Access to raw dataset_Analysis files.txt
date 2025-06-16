@@ -1,0 +1,13 @@
+
+## Acessing the raw database of the National Program for Improving Primary Care Access and Quality (PMAQ-2011)
+1. Click on the link: https://www.gov.br/saude/pt-br/composicao/saps/pmaq
+2. Click on the "1º Ciclo" option under "Ciclos do PMAQ AB"
+3. From the eight available options, click on the "Microdados de avaliação Externa" option.
+4. Three datasets will then be available for download: one for primary health care facilities, one for the PHC teams, and one for the users.
+
+
+## Analysis files description:
+CHC.Covariates.dat       - The datasets required for Step 1 and Step 2 are available and can be accessed using MPlus and RStudio
+3BCH.dat                 - The dataset for Step 3 is available and can be accessed using MPlus and RStudio software.
+Step1_2_CHC.inp          - Code for Step 1 and Step 2 of the BCH procedure, executable in MPlus.
+Step3_CHC_Covariates.inp - Code for Step 3 of the BCH procedure, executable in MPlus.

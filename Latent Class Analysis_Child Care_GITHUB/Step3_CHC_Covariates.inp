@@ -1,0 +1,33 @@
+  
+  TITLE: LCA with covariates
+    DATA: FILE = "C:/Users/josemir.almeida/Desktop/LCA_BCH/3BCH_V2.dat";
+
+  VARIABLE:
+
+  NAMES = chntlca1 chrdlca1 chmdlca1 chsvlca2 chbflca1 chprlca1
+        chaslca1 chsvlca1 chsclca1 IBP1Q1Q2 IBP2Q3 IBP4Q4Q5 
+        north northeast south southeast center
+        bch1 bch2 bch3 ibge2;
+
+  USEVAR = IBP1Q1Q2 IBP2Q3 north northeast south southeast
+            bch1 bch2 bch3 ibge2;
+
+  CLASSES = c(3);
+
+  CLUSTER = ibge2;
+
+  TRAINING= bch1-bch3(bch);
+
+  ANALYSIS: 
+  TYPE = COMPLEX MIXTURE;
+  STARTS = 0;
+
+  MODEL:
+
+  %OVERALL%
+   c#1 ON IBP1Q1Q2 IBP2Q3 north northeast south southeast;
+   c#2 ON IBP1Q1Q2 IBP2Q3 north northeast south southeast;
+   
+	
+OUTPUT: CINTERVAL; TECH3; TECH1; TECH4; TECH8;
+
